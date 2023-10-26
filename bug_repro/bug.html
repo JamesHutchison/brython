@@ -1,0 +1,37 @@
+<html>
+
+<head>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/brython@3.12.0/brython.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.12.0/brython_stdlib.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function () { brython({ debug: 1, pythonpath: ['/static/brython'] }); }
+    </script>
+    <script type="text/python" src="/static/brython/hashing.py" id="hashing"></script>
+</head>
+<h1>Bug 1</h1>
+<p>
+    Open the console and note the errors: bizarre (2) ['http://127.0.0.1:8000/static/brython',
+    'https://cdn.jsdelivr.net/npm/brython@3.12.0/Lib/site-packages']
+</p>
+<h1>Bug 2</h1>
+<p>
+    Brython attempts to execute the current file on import if a trailing slash is in the query parameters.
+</p>
+<a href="/?redirect=/">Engage bug 2</a>
+<script type="text/python">
+import bug_2
+
+print("Brython ran")
+</script>
+<p>
+    Note the error in the console:
+</p>
+<pre>
+    File "http://127.0.0.1:8000/?redirect=/bug_2.py", line 1
+    &lt;html&gt;
+    ^
+    SyntaxError: invalid syntax
+</pre>
+
+</html>
